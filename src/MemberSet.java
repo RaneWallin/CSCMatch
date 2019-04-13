@@ -32,8 +32,18 @@ public class MemberSet implements Serializable {
         return member != null ? member : null;
     }
 
+    public Boolean hasMemberByName(String  name) {
+        Boolean hasMember = false;
+        for(Member member: memberSet) if (name == member.getName()) hasMember = true;
+    }
+
     public InterestMap getInterestMap() {
         return interestMap;
+    }
+
+    @Override
+    public String toString() {
+        return "Printing members";
     }
 
 }

@@ -9,7 +9,7 @@ public class CSCMatch {
 
 	public static void main(String[] args) {
 		Boolean quit = false;
-		String memberName, interestIn;
+		String memberName, interestIn, fileName, otherChoice;
 		int gradeYear, interestScore, choice;
 		Interest interest;
 		Member member;
@@ -26,10 +26,33 @@ public class CSCMatch {
 
 			switch(choice) {
 				case 1:
-
+					System.out.println("Enter the file name: ");
+					fileName = s.next();
+					break;
 				case 2:
+					System.out.println("Enter file name: ");
+					fileName = s.next();
+					break;
 				case 3:
+					members.toString();
 				case 4:
+					System.out.println("Enter new member's name: ");
+					memberName = s.next();
+					if (members.hasMemberByName(memberName)) {
+						System.out.println("This member exists, do you with to overwrite them? [Y/N] ");
+						otherChoice = s.next();
+
+						if (otherChoice.toLowerCase() == "y") {
+							members.removeMember(members.getMemberByName(memberName));
+						}
+					}
+
+					if (!members.hasMemberByName(memberName)) {
+						System.out.println("What year is this member: ");
+						gradeYear = s.nextInt();
+
+						members.addMember(new Member(memberName, gradeYear));
+					}
 				case 5:
 				case 6:
 				case 7:
