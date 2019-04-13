@@ -62,6 +62,10 @@ public class CSCMatch {
 						members.removeMember(members.getMemberByName(memberName));
 					}
 				case 6:
+					System.out.println("Enter name of member to list: ");
+					memberName = s.next();
+					member = members.getMemberByName(memberName);
+					member.toString();
 				case 7:
 				case 8:
 					quit = true;
