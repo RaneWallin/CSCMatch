@@ -3,6 +3,11 @@ public class Interest {
 
 	private String name;
 	private int score;
+
+	public Interest(String name, int score) {
+		this.name = name;
+		this.score = score;
+	}
 	
 	public String getName() {
 		return name;
