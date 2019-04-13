@@ -54,6 +54,13 @@ public class CSCMatch {
 						members.addMember(new Member(memberName, gradeYear));
 					}
 				case 5:
+					System.out.println("Enter name of member to remove: ");
+					memberName = s.next();
+					if (!members.hasMemberByName(memberName)) {
+						System.out.println("This member does not exist.");
+					} else {
+						members.removeMember(members.getMemberByName(memberName));
+					}
 				case 6:
 				case 7:
 				case 8:

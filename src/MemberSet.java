@@ -35,6 +35,8 @@ public class MemberSet implements Serializable {
     public Boolean hasMemberByName(String  name) {
         Boolean hasMember = false;
         for(Member member: memberSet) if (name == member.getName()) hasMember = true;
+
+        return hasMember;
     }
 
     public InterestMap getInterestMap() {
