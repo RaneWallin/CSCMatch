@@ -9,7 +9,7 @@ public class CSCMatch {
 
 	public static void main(String[] args) {
 		Boolean quit = false;
-		String memberName, interestIn, fileName, otherChoice;
+		String memberName, interestName, fileName, otherChoice;
 		int gradeYear, interestScore, choice;
 		Interest interest;
 		Member member;
@@ -67,6 +67,21 @@ public class CSCMatch {
 					member = members.getMemberByName(memberName);
 					member.toString();
 				case 7:
+					System.out.println("Enter member name: ");
+					memberName = s.next();
+					if (members.hasMemberByName(memberName)) {
+						member = members.getMemberByName(memberName);
+						System.out.println("What is the interest? ");
+						interestName = s.next();
+
+						System.out.println("What is the interest level? ");
+						interestScore = s.nextInt();
+
+						interest = new Interest(interestName, interestScore);
+
+						member.addInterestToMember(interest);
+					}
+					else System.out.println("This member does not exist.");
 				case 8:
 					quit = true;
 				default:
