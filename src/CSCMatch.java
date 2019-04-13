@@ -89,6 +89,8 @@ public class CSCMatch {
 			}
 		}
 
+		quit();
+
 	}
 
 }
