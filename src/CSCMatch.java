@@ -51,7 +51,7 @@ public class CSCMatch {
 						System.out.println("What year is this member: ");
 						gradeYear = s.nextInt();
 
-						members.addMember(new Member(memberName, gradeYear));
+						members.addMember(new Member(memberName, gradeYear, members));
 					}
 				case 5:
 					System.out.println("Enter name of member to remove: ");
@@ -79,7 +79,7 @@ public class CSCMatch {
 
 						interest = new Interest(interestName, interestScore);
 
-						member.addInterestToMember(interest);
+						member.AddInterest(interest);
 					}
 					else System.out.println("This member does not exist.");
 				case 8:
