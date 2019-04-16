@@ -3,20 +3,19 @@ import java.util.Scanner;
 public class Menu {
 
     public static void go(Scanner s) {
-        Boolean quit = false, validInput = false;
+        Boolean quit = false, validInput;
         String memberName, interestName, fileName, otherChoice;
         int gradeYear, interestScore, choice;
         Interest interest;
         Member member;
         MemberSet members = new MemberSet(new InterestMap());
 
-        System.out.println("What would you like to do (pick a number)?\n1. Load members " +
-                " 2. Save members 3. List all members 4. Add a member " +
-                "5. Remove a member 6. List member 7. Add an interest to a member " +
-                "8. Quit");
-        choice = s.nextInt();
-
         while (!quit) {
+            System.out.println("What would you like to do (pick a number)?\n1. Load members " +
+                    " 2. Save members 3. List all members 4. Add a member " +
+                    "5. Remove a member 6. List member 7. Add an interest to a member " +
+                    "8. Quit");
+            choice = s.nextInt();
             switch (choice) {
                 case 1: // Load members
                     System.out.println("Enter the file name: ");
@@ -112,13 +111,6 @@ public class Menu {
                     break;
                 default:
                     System.out.println("Invalid choice, please pick again or type 8 to quit.");
-            }
-            if (!quit) {
-                System.out.println("What would you like to do (pick a number)?\n1. Load members " +
-                        " 2. Save members 3. List all members 4. Add a member " +
-                        "5. Remove a member 6. List member 7. Add an interest to a member " +
-                        "8. Quit");
-                choice = s.nextInt();
             }
         }
 
