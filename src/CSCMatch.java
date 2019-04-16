@@ -24,7 +24,6 @@ public class CSCMatch {
 		choice = s.nextInt();
 
 		while(!quit) {
-
 			switch(choice) {
 				case 1: // Load membes
 					System.out.println("Enter the file name: ");
@@ -57,7 +56,6 @@ public class CSCMatch {
 					// Add the member if they don't exist
 					if (!members.hasMemberByName(memberName)) {
 					    // Get the member's year
-                        // TODO - add error handling9
 						validInput = false;
 						while(!validInput) {
 							System.out.println("What grade level is this member: ");
@@ -70,6 +68,7 @@ public class CSCMatch {
 							}
 							catch(Exception e) {
 								System.out.println("Please enter a number for the grade level: ");
+								// flush the buffer
 								s.nextLine();
 							}
 						}
@@ -80,10 +79,13 @@ public class CSCMatch {
 					memberName = s.next();
 					// Veify member exists
 					if (!members.hasMemberByName(memberName)) {
-						System.out.println("This member does not exist.");
+						System.out.println(memberName + " is not a member.");
 					} else {
+						member = members.getMemberByName(memberName);
+						if (member == null) System.out.println("Nope");
+						else System.out.println(member.getName());
 					    // Remove member
-						members.removeMember(members.getMemberByName(memberName));
+						members.removeMember(member);
 					}
 					break;
 				case 6: // Print single members
@@ -111,16 +113,19 @@ public class CSCMatch {
 					else System.out.println("This member does not exist.");
 					break;
 				case 8:
+					System.out.println("Quitting....");
 					quit = true;
 					break;
 				default:
 					System.out.println("Invalid choice, please pick again or type 8 to quit.");
 			}
-			System.out.println("What would you like to do (pick a number)?\n1. Load members " +
-					" 2. Save members 3. List all members 4. Add a member " +
-					"5. Remove a member 6. List member 7. Add an interest to a member " +
-					"8. Quit");
-			choice = s.nextInt();
+			if (!quit) {
+				System.out.println("What would you like to do (pick a number)?\n1. Load members " +
+						" 2. Save members 3. List all members 4. Add a member " +
+						"5. Remove a member 6. List member 7. Add an interest to a member " +
+						"8. Quit");
+				choice = s.nextInt();
+			}
 		}
 
 		quit();

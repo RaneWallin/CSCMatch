@@ -31,16 +31,21 @@ public class MemberSet implements Serializable {
         Member member = null;
 
         for(Member myMember: memberSet) {
-            if(name == myMember.getName()) member = myMember;
+            if(name.equals(myMember.getName())) member = myMember;
         }
 
-        return member != null ? member : null;
+        return member;
     }
 
     // Checks if Member is part of MemberSet
     public Boolean hasMemberByName(String  name) {
         Boolean hasMember = false;
-        for(Member member: memberSet) if (name == member.getName()) hasMember = true;
+
+        for(Member member: memberSet) {
+            if (name.equals(member.getName())) {
+                hasMember = true;
+            }
+        }
 
         return hasMember;
     }
