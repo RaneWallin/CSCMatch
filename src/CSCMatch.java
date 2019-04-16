@@ -91,8 +91,12 @@ public class CSCMatch {
 				case 6: // Print single members
 					System.out.println("Enter name of member to list: ");
 					memberName = s.next();
-					member = members.getMemberByName(memberName);
-					member.toString();
+					if (members.hasMemberByName(memberName)) {
+						member = members.getMemberByName(memberName);
+						System.out.println(member.toString());
+					} else {
+						System.out.println("No such member.");
+					}
 					break;
 				case 7: // Add an interest to the member
 					System.out.println("Enter member name: ");
