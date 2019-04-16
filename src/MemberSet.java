@@ -10,10 +10,12 @@ public class MemberSet implements Serializable {
         this.interestMap = interestMap;
     }
 
+    // TODO - add error handling
     public void addMember(Member member) {
         memberSet.add(member);
     }
 
+    // TODO - add error handling
     public void removeMember(Member member) {
         memberSet.remove(member);
     }
@@ -22,6 +24,8 @@ public class MemberSet implements Serializable {
         return memberSet;
     }
 
+    // Looks for a Member in the Member set using their name and
+    // returns the Member. Returns null if Member does not exist
     public Member getMemberByName(String name) {
         Member member = null;
 
@@ -32,6 +36,7 @@ public class MemberSet implements Serializable {
         return member != null ? member : null;
     }
 
+    // Checks if Member is part of MemberSet
     public Boolean hasMemberByName(String  name) {
         Boolean hasMember = false;
         for(Member member: memberSet) if (name == member.getName()) hasMember = true;
@@ -45,7 +50,12 @@ public class MemberSet implements Serializable {
 
     @Override
     public String toString() {
-        return "Printing members";
+        StringBuilder members = new StringBuilder();
+        for(Member member: memberSet) {
+            members.append(member.toString());
+        }
+
+        return members.toString();
     }
 
 }

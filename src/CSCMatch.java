@@ -64,6 +64,7 @@ public class CSCMatch {
 						// Add member to MemberMap
 						members.addMember(new Member(memberName, gradeYear, members));
 					}
+					break;
 				case 5: // Remove member
 					System.out.println("Enter name of member to remove: ");
 					memberName = s.next();
@@ -74,11 +75,13 @@ public class CSCMatch {
 					    // Remove member
 						members.removeMember(members.getMemberByName(memberName));
 					}
+					break;
 				case 6: // Print single members
 					System.out.println("Enter name of member to list: ");
 					memberName = s.next();
 					member = members.getMemberByName(memberName);
 					member.toString();
+					break;
 				case 7: // Add an interest to the member
 					System.out.println("Enter member name: ");
 					memberName = s.next();
@@ -96,8 +99,10 @@ public class CSCMatch {
 						member.addInterest(interest);
 					}
 					else System.out.println("This member does not exist.");
+					break;
 				case 8:
 					quit = true;
+					break;
 				default:
 					System.out.println("Invalid choice, please pick again or type 8 to quit.");
 			}
