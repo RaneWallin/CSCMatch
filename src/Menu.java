@@ -18,7 +18,7 @@ public class Menu {
 
         while (!quit) {
             switch (choice) {
-                case 1: // Load membes
+                case 1: // Load members
                     System.out.println("Enter the file name: ");
                     fileName = s.next();
                     break;
@@ -30,7 +30,6 @@ public class Menu {
                     System.out.println(members.toString());
                     break;
                 case 4: // Add new member
-
                     System.out.println("Enter new member's name: ");
                     memberName = s.next();
 
@@ -69,7 +68,7 @@ public class Menu {
                 case 5: // Remove member
                     System.out.println("Enter name of member to remove: ");
                     memberName = s.next();
-                    // Veify member exists
+                    // Verify member exists
                     if (!members.hasMemberByName(memberName)) {
                         System.out.println(memberName + " is not a member.");
                     } else {
