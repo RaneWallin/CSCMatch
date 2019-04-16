@@ -12,6 +12,7 @@ public class MemberSet implements Serializable {
 
     // TODO - add error handling
     public void addMember(Member member) {
+        System.out.println("Adding " + member.getName() + ".");
         memberSet.add(member);
     }
 
@@ -52,9 +53,11 @@ public class MemberSet implements Serializable {
     public String toString() {
         StringBuilder members = new StringBuilder();
         for(Member member: memberSet) {
+            members.append("\n");
             members.append(member.toString());
         }
 
+        //System.out.println(members);
         return members.toString();
     }
 

@@ -35,7 +35,7 @@ public class CSCMatch {
 					fileName = s.next();
 					break;
 				case 3: // Print all members
-					members.toString();
+					System.out.println(members.toString());
 					break;
 				case 4: // Add new member
 
