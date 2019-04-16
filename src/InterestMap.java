@@ -54,8 +54,8 @@ public class InterestMap<K,V> implements Serializable
     }
 
     // Get members with interest
-    public List<V> getMembersWithInterest(K interest) {
-        return interestMap.get(interest);
+    public V[] getMembersWithInterest(K interest) {
+        return (V[]) ((List<V>)interestMap.get(interest)).toArray();
     }
 
     // Get a Set with all the interests

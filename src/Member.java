@@ -10,6 +10,17 @@ public class Member implements Serializable{
 	private int year;
 	private HashSet<Interest> interests;
 	private HashSet<Member> potentialMatches;
+	private MemberSet members;
+
+	//Constructors
+	public Member(String name, int year, MemberSet members)
+	{
+		this.name = name;
+		this.year = year;
+		this.members = members;
+		this.interests = new HashSet<Interest>();
+		this.potentialMatches = new HashSet<Member>();
+	}
 
 	@Override
 	public String toString() {
@@ -41,49 +52,37 @@ public class Member implements Serializable{
 		return true;
 	}
 	
-	public void AddInterest(String name, int score, Member member)
+	public void addInterest(Interest interest)
 	{
-		Interest interest = new Interest(name, score);
-		InterestMap interestmap = new InterestMap<>();
+		//Interest interest = new Interest(name, score);
+		InterestMap interestMap = members.getInterestMap();
 		
 		interests.add(interest);
-		interestmap.addMemberToInterest(member, interest);
-		UpdateMatches(member);
+		interestMap.addMemberToInterest(this, interest);
+		updateMatches(interest);
 	}
 	
-	public HashSet ListInterests()
+	public HashSet listInterests()
 	{
 		return interests;
 	}
 	
-	public void UpdateMatches(Member members)
+	public void updateMatches(Interest interest)
 	{
-		InterestMap interestmap = new InterestMap<>();
-		int compatibilityScore = 0;
+		InterestMap interestMap = members.getInterestMap();
+		int matchScore = 0;
 		
 		
-		for (Interest interest : interests) {
-			interestmap.getMembersWithInterest(interest);
-			potentialMatches.add(members);
+		for (Object member : interestMap.getMembersWithInterest(interest)) {
+			interestMap.getMembersWithInterest(interest);
+			potentialMatches.add((Member)member);
 		}
 		
-		for (Member member : potentialMatches) {
-			
-		}
 	}
 	
 	public HashSet getTopMatches()
 	{
-		
-	}
-
-	//Constructors
-	public Member(String name, int year)
-	{
-		this.name = name;
-		this.year = year;
-		this.interests = new HashSet<Interest>();
-		this.potentialMatches = new HashSet<Member>();
+		return new HashSet();
 	}
 	
 	//Getters and Setters
