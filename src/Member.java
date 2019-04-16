@@ -1,7 +1,5 @@
-import java.util.LinkedList;
-import java.util.Scanner;
+import java.util.*;
 import java.io.*;
-import java.util.HashSet;
 import java.io.Serializable;
 
 public class Member implements Serializable{
@@ -9,7 +7,7 @@ public class Member implements Serializable{
 	private String name;
 	private int year;
 	private HashSet<Interest> interests;
-	private HashSet<Member> potentialMatches;
+	private Map<Member, Integer> potentialMatches;
 	private MemberSet members;
 
 	//Constructors
@@ -18,8 +16,8 @@ public class Member implements Serializable{
 		this.name = name;
 		this.year = year;
 		this.members = members;
-		this.interests = new HashSet<Interest>();
-		this.potentialMatches = new HashSet<Member>();
+		this.interests = new HashSet<>();
+		this.potentialMatches = new HashMap<>();
 	}
 
 	@Override
@@ -59,6 +57,7 @@ public class Member implements Serializable{
 		
 		interests.add(interest);
 		interestMap.addMemberToInterest(this, interest);
+
 		updateMatches(interest);
 	}
 	
@@ -69,15 +68,20 @@ public class Member implements Serializable{
 	
 	public void updateMatches(Interest interest)
 	{
-		InterestMap interestMap = members.getInterestMap();
-		int matchScore = 0;
-		
-		
-		for (Object member : interestMap.getMembersWithInterest(interest)) {
-			interestMap.getMembersWithInterest(interest);
-			potentialMatches.add((Member)member);
+		int score = 0;
+		for (Member member : members) {
+			score = calcMatchScore(member);
+			potentialMatches.put(member, score);
 		}
 		
+	}
+
+	public void addPotentialMatch(Member member) {
+		potentialMatches.put(member, calcMatchScore(member));
+	}
+
+	private int calcMatchScore(Member member) {
+		return 1;
 	}
 	
 	public HashSet getTopMatches()
