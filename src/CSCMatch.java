@@ -26,50 +26,63 @@ public class CSCMatch {
 		while(!quit) {
 
 			switch(choice) {
-				case 1:
+				case 1: // Load membes
 					System.out.println("Enter the file name: ");
 					fileName = s.next();
 					break;
-				case 2:
+				case 2: // Save members
 					System.out.println("Enter file name: ");
 					fileName = s.next();
 					break;
-				case 3:
+				case 3: // Print all members
 					members.toString();
-				case 4:
+					break;
+				case 4: // Add new member
+
 					System.out.println("Enter new member's name: ");
 					memberName = s.next();
+
+					// Check if member exists
 					if (members.hasMemberByName(memberName)) {
 						System.out.println("This member exists, do you with to overwrite them? [Y/N] ");
 						otherChoice = s.next();
 
+						// ask user if they want to replace the member and delete then member from
+                        // the MemberMap if they do
 						if (otherChoice.toLowerCase() == "y") {
 							members.removeMember(members.getMemberByName(memberName));
 						}
 					}
 
+					// Add the member if they don't exist
 					if (!members.hasMemberByName(memberName)) {
+					    // Get the member's year
+                        // TODO - add error handling
 						System.out.println("What year is this member: ");
 						gradeYear = s.nextInt();
 
+						// Add member to MemberMap
 						members.addMember(new Member(memberName, gradeYear, members));
 					}
-				case 5:
+				case 5: // Remove member
 					System.out.println("Enter name of member to remove: ");
 					memberName = s.next();
+					// Veify member exists
 					if (!members.hasMemberByName(memberName)) {
 						System.out.println("This member does not exist.");
 					} else {
+					    // Remove member
 						members.removeMember(members.getMemberByName(memberName));
 					}
-				case 6:
+				case 6: // Print single members
 					System.out.println("Enter name of member to list: ");
 					memberName = s.next();
 					member = members.getMemberByName(memberName);
 					member.toString();
-				case 7:
+				case 7: // Add an interest to the member
 					System.out.println("Enter member name: ");
 					memberName = s.next();
+					// TODO - add error handling
 					if (members.hasMemberByName(memberName)) {
 						member = members.getMemberByName(memberName);
 						System.out.println("What is the interest? ");
@@ -80,7 +93,7 @@ public class CSCMatch {
 
 						interest = new Interest(interestName, interestScore);
 
-						member.AddInterest(interest);
+						member.addInterest(interest);
 					}
 					else System.out.println("This member does not exist.");
 				case 8:
