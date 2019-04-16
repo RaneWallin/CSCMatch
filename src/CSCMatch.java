@@ -8,7 +8,7 @@ public class CSCMatch {
 	}
 
 	public static void main(String[] args) {
-		Boolean quit = false;
+		Boolean quit = false, validInput = false;
 		String memberName, interestName, fileName, otherChoice;
 		int gradeYear, interestScore, choice;
 		Interest interest;
@@ -57,12 +57,22 @@ public class CSCMatch {
 					// Add the member if they don't exist
 					if (!members.hasMemberByName(memberName)) {
 					    // Get the member's year
-                        // TODO - add error handling
-						System.out.println("What year is this member: ");
-						gradeYear = s.nextInt();
+                        // TODO - add error handling9
+						validInput = false;
+						while(!validInput) {
+							System.out.println("What grade level is this member: ");
+							try {
+								gradeYear = s.nextInt();
+								validInput = true;
 
-						// Add member to MemberMap
-						members.addMember(new Member(memberName, gradeYear, members));
+								// Add member to MemberMap
+								members.addMember(new Member(memberName, gradeYear, members));
+							}
+							catch(Exception e) {
+								System.out.println("Please enter a number for the grade level: ");
+								s.nextLine();
+							}
+						}
 					}
 					break;
 				case 5: // Remove member
