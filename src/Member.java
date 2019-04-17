@@ -69,10 +69,10 @@ public class Member implements Serializable{
 	public void updateMatches(Interest interest)
 	{
 		int score = 0;
-		for (Member member : members) {
-			score = calcMatchScore(member);
-			potentialMatches.put(member, score);
-		}
+//		for (Member member : members) {
+//			score = calcMatchScore(member);
+//			potentialMatches.put(member, score);
+//		}
 		
 	}
 

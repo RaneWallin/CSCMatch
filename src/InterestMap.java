@@ -37,7 +37,7 @@ public class InterestMap<K,V> implements Serializable
         interestMap.put(interest, members);
 
         // update member score for reach member in this interest
-        for(Object m: members) ((Member)m).updateMatches((ArrayList<Member>)members);
+        //for(Object m: members) ((Member)m).updateMatches((ArrayList<Member>)members);
     }
 
     // remove member from interest
@@ -57,6 +57,8 @@ public class InterestMap<K,V> implements Serializable
 
         // update member score for reach member in this interest
         // for(Object m: members) ((Member)m).updateMatches((ArrayList<Member>)members);
+
+        return true;
     }
 
     // Get members with interest
