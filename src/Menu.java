@@ -1,15 +1,18 @@
- import java.util.Scanner;
+ import java.io.IOException;
+import java.util.Scanner;
 
 public class Menu {
 
-    public static void go(Scanner s) {
+    public static void go(Scanner s) throws ClassNotFoundException, IOException {
         Boolean quit = false, validInput;
         String memberName, interestName, fileName, otherChoice;
         int gradeYear, interestScore, choice;
         Interest interest;
         Member member;
         MemberSet members = new MemberSet(new InterestMap());
-
+        FileHandler fh = new FileHandler();
+        
+        
         while (!quit) {
             System.out.println("What would you like to do (pick a number)?\n1. Load members " +
                     " 2. Save members 3. List all members 4. Add a member " +
@@ -19,11 +22,18 @@ public class Menu {
             switch (choice) {
                 case 1: // Load members
                     System.out.println("Enter the file name: ");
+                    
                     fileName = s.next();
+                   
+                    fh.filename(fileName);
+                    fh.load(fileName);
+                    
+                    
                     break;
                 case 2: // Save members
                     System.out.println("Enter file name: ");
                     fileName = s.next();
+                    fh.save(fileName, members);
                     break;
                 case 3: // Print all members
                     System.out.println(members.toString());
@@ -100,9 +110,9 @@ public class Menu {
                         System.out.println("What is the interest level? ");
                         interestScore = s.nextInt();
 
-                        interest = new Interest(interestName, interestScore);
+                    //    interest = new Interest(interestName, interestScore);
 
-                        member.addInterest(interest);
+                      //  member.addInterest(interest);
                     } else System.out.println("This member does not exist.");
                     break;
                 case 8:
