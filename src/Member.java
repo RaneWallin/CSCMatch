@@ -1,5 +1,9 @@
+/*
+ References:
+ Sorting a map: https://beginnersbook.com/2014/07/how-to-sort-a-treemap-by-value-in-java/
+ */
+
 import java.util.*;
-import java.io.*;
 import java.io.Serializable;
 
 public class Member implements Serializable{
@@ -17,7 +21,7 @@ public class Member implements Serializable{
 		this.year = year;
 		this.members = members;
 		this.interests = new HashMap<>();
-		this.potentialMatches = new HashMap<>();
+		this.potentialMatches = new HashMap<Member, Integer>();
 	}
 
 	@Override
@@ -75,13 +79,24 @@ public class Member implements Serializable{
 	}
 
 	private int calcMatchScore(Member member) {
-		return 1;
+		int score = 0;
+		List<String> matchInterests = member.listInterests();
+
+		for(String interest: matchInterests) {
+			if (interests.containsKey(interest)) {
+				score += (getMemberInterest(interest) * member.getMemberInterest(interest));
+			} else {
+				score += Math.floor((member.getMemberInterest(interest) / 2));
+			}
+		}
+
+		return score;
 	}
 	
-	public HashSet getTopMatches()
-	{
-		return new HashSet();
-	}
+//	public List getTopMatches()
+//	{
+//		//List<Member>
+//	}
 
 	public int getMemberInterest(String interest) {
 		return interests.get(interest);
