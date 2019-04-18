@@ -6,7 +6,7 @@ public class Member implements Serializable{
 	//Instance Variables
 	private String name;
 	private int year;
-	private HashSet<Interest> interests;
+	private Map<String, Integer> interests;
 	private Map<Member, Integer> potentialMatches;
 	private MemberSet members;
 
@@ -16,21 +16,13 @@ public class Member implements Serializable{
 		this.name = name;
 		this.year = year;
 		this.members = members;
-		this.interests = new HashSet<>();
+		this.interests = new HashMap<>();
 		this.potentialMatches = new HashMap<>();
 	}
 
 	@Override
 	public String toString() {
 		return "Member [name=" + name + ", year=" + year + ", interest=" + interests + "]";
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		return result;
 	}
 
 	@Override
@@ -50,30 +42,32 @@ public class Member implements Serializable{
 		return true;
 	}
 	
-	public void addInterest(Interest interest)
+	public void addInterest(int score, String name)
 	{
-		//Interest interest = new Interest(name, score);
 		InterestMap interestMap = members.getInterestMap();
 		
-		interests.add(interest);
-		interestMap.addMemberToInterest(this, interest);
+		interests.put(name, score);
+		interestMap.addMemberToInterest(this, name);
 
-		updateMatches(interest);
+		ArrayList<Member> interestedMembers = (ArrayList<Member>)members.getInterestMap().getMembersWithInterest(name);
+
+		for (Member member : interestedMembers) {
+			if (member != this)
+				updateMatch(member);
+		}
 	}
 	
-	public HashSet listInterests()
+	public List listInterests()
 	{
-		return interests;
+		return (List<String>)interests.keySet();
 	}
 	
-	public void updateMatches(Interest interest)
+	public void updateMatch(Member member)
 	{
 		int score = 0;
-//		for (Member member : members) {
-//			score = calcMatchScore(member);
-//			potentialMatches.put(member, score);
-//		}
-		
+		score = calcMatchScore(member);
+		potentialMatches.put(member, score);
+
 	}
 
 	public void addPotentialMatch(Member member) {
@@ -87,6 +81,10 @@ public class Member implements Serializable{
 	public HashSet getTopMatches()
 	{
 		return new HashSet();
+	}
+
+	public int getMemberInterest(String interest) {
+		return interests.get(interest);
 	}
 	
 	//Getters and Setters

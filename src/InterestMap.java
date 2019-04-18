@@ -22,19 +22,19 @@ public class InterestMap<K,V> implements Serializable
 
     // add a member to an interest
     public void addMemberToInterest(V member, K interest) {
-        List members = interestMap.get(interest);
+        List memberInterests = interestMap.get(interest);
 
         // if the interest doesn't have members
         // create an ArrayList
-        if(members == null) {
-            members = new ArrayList<V>();
+        if(memberInterests == null) {
+            memberInterests = new ArrayList<V>();
         }
 
         // Add member to the list
-        members.add(member);
+        memberInterests.add(member);
 
         // put the interest on the map
-        interestMap.put(interest, members);
+        interestMap.put(interest, memberInterests);
 
         // update member score for reach member in this interest
         //for(Object m: members) ((Member)m).updateMatches((ArrayList<Member>)members);
@@ -62,8 +62,8 @@ public class InterestMap<K,V> implements Serializable
     }
 
     // Get members with interest
-    public V[] getMembersWithInterest(K interest) {
-        return (V[]) ((List<V>)interestMap.get(interest)).toArray();
+    public List getMembersWithInterest(K interest) {
+        return ((List<V>)interestMap.get(interest));
     }
 
     // Get a Set with all the interests
