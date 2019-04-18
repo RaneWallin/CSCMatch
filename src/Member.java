@@ -8,6 +8,7 @@ import java.io.Serializable;
 
 public class Member implements Serializable{
 	//Instance Variables
+	private static int MAX_TOP_MEMBERS = 5;
 	private String name;
 	private int year;
 	private Map<String, Integer> interests;
@@ -22,28 +23,6 @@ public class Member implements Serializable{
 		this.members = members;
 		this.interests = new HashMap<>();
 		this.potentialMatches = new HashMap<Member, Integer>();
-	}
-
-	@Override
-	public String toString() {
-		return "Member [name=" + name + ", year=" + year + ", interest=" + interests + "]";
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Member other = (Member) obj;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
-			return false;
-		return true;
 	}
 	
 	public void addInterest(int score, String name)
@@ -61,9 +40,9 @@ public class Member implements Serializable{
 		}
 	}
 	
-	public List listInterests()
+	public Set listInterests()
 	{
-		return (List<String>)interests.keySet();
+		return (Set<String>)interests.keySet();
 	}
 	
 	public void updateMatch(Member member)
@@ -80,7 +59,7 @@ public class Member implements Serializable{
 
 	private int calcMatchScore(Member member) {
 		int score = 0;
-		List<String> matchInterests = member.listInterests();
+		Set<String> matchInterests = member.listInterests();
 
 		for(String interest: matchInterests) {
 			if (interests.containsKey(interest)) {
@@ -92,11 +71,23 @@ public class Member implements Serializable{
 
 		return score;
 	}
-	
-//	public List getTopMatches()
-//	{
-//		//List<Member>
-//	}
+
+	public List<Member> getTopMatches()
+	{
+		Map sortedMap = sortByValues(potentialMatches);
+		List topMatches = new ArrayList<Member>();
+		int count = 0;
+
+		for(Member member: (Set<Member>)sortedMap.keySet()) {
+			if (count < MAX_TOP_MEMBERS) {
+				topMatches.add(member);
+				System.out.println(member.toString());
+				count++;
+			}
+		}
+
+		return topMatches;
+	}
 
 	public int getMemberInterest(String interest) {
 		return interests.get(interest);
@@ -123,5 +114,53 @@ public class Member implements Serializable{
 		this.year = year;
 	}
 
+	@Override
+	public String toString() {
+		StringBuilder result = new StringBuilder();
+
+		result.append("Member [name=" + name + ", year=" + year + ", interest=" + interests + "]\n");
+		for(Member m: getTopMatches()) {
+			result.append(m.name + " score: " + potentialMatches.get(m));
+		}
+
+		return result.toString();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Member other = (Member) obj;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		return true;
+	}
+
+	// https://beginnersbook.com/2014/07/how-to-sort-a-treemap-by-value-in-java/
+	public static <K, V extends Comparable<V>> Map<K, V>
+	sortByValues(final Map<K, V> map) {
+		Comparator<K> valueComparator =
+				new Comparator<K>() {
+					public int compare(K k1, K k2) {
+						int compare =
+								map.get(k1).compareTo(map.get(k2));
+						if (compare == 0)
+							return 1;
+						else
+							return compare;
+					}
+				};
+		Map<K, V> sortedByValues =
+				new TreeMap<K, V>(valueComparator);
+		sortedByValues.putAll(map);
+		return sortedByValues;
+	}
 	
 }

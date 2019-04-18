@@ -3,14 +3,14 @@ import java.util.Scanner;
 
 public class Menu {
 
-    public static void go(Scanner s) throws ClassNotFoundException, IOException {
+    public static void go(Scanner s)  { //throws ClassNotFoundException, IOException {
         Boolean quit = false, validInput;
         String memberName, interestName, fileName, otherChoice;
         int gradeYear, interestScore, choice;
         Interest interest;
         Member member;
         MemberSet members = new MemberSet(new InterestMap());
-        FileHandler fh = new FileHandler();
+        //FileHandler fh = new FileHandler();
         
         
         while (!quit) {
@@ -22,18 +22,25 @@ public class Menu {
             switch (choice) {
                 case 1: // Load members
                     System.out.println("Enter the file name: ");
-                    
-                    fileName = s.next();
-                   
-                    fh.filename(fileName);
-                    fh.load(fileName);
-                    
-                    
+
+//                    try {
+//                        fileName = s.next();
+//
+//                        fh.filename(fileName);
+//                        fh.load(fileName);
+//                    } catch (IOException | ClassNotFoundException e) {
+//                        System.out.println(e.getLocalizedMessage());
+//                    }
+
                     break;
                 case 2: // Save members
                     System.out.println("Enter file name: ");
-                    fileName = s.next();
-                    fh.save(fileName, members);
+//                    try {
+//                        fileName = s.next();
+//                        fh.save(fileName, members);
+//                    } catch (IOException e) {
+//                        System.out.println(e.getLocalizedMessage());
+//                    }
                     break;
                 case 3: // Print all members
                     System.out.println(members.toString());
@@ -112,7 +119,7 @@ public class Menu {
 
                     //    interest = new Interest(interestName, interestScore);
 
-                      //  member.addInterest(interest);
+                      member.addInterest(interestScore, interestName);
                     } else System.out.println("This member does not exist.");
                     break;
                 case 8:
